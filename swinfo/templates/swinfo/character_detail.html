@@ -32,7 +32,7 @@
     <td>{{ character.eyeColor }}</td>
     <td>{{ character.birthYear }}</td>
     <td>{{ character.gender }}</td>
-    <td>{{ character.homeworld.name }}</td>
+    <td class="click"><a href = "{% url 'planet_detail' character.homeworld.id %}">{{ character.homeworld.name }}</a></td>
   </tr>
 </table>
 

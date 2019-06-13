@@ -233,23 +233,58 @@ def ship_detail(request, starship_id):
     })
 
 def planet_detail(request, planet_id):
-    response = requests.get('https://swapi.co/api/planets/'+str(planet_id))
-    planet = response.json()
-    films = []
+    query = {"query":
+    """
+    {
+	allPlanets {
+    edges {
+      node {
+        name
+        id
+        rotationPeriod
+        orbitalPeriod
+        diameter
+        climates
+        gravity
+        terrains
+        surfaceWater
+        population
+        filmConnection {
+          films {
+            title
+            id
+          }
+        }
+        residentConnection {
+          residents {
+            name
+            id
+          }
+        }
+      }
+    }
+  }
+}
+"""
+}
+    response = requests.post(url = url, json = query)
+    planets = response.json()["data"]["allPlanets"]["edges"]
+
+    for planet in planets:
+        if planet["node"]["id"] == planet_id:
+            true_planet = planet["node"]
+
+    films = {}
     residents = {}
 
-    for film in planet['films']:
-        movie = requests.get(film)
-        films.append(movie.json())
+    for film in true_planet['filmConnection']['films']:
+        films.update({film["title"] : film["id"]})
 
-    for resident in planet['residents']:
-        residente = requests.get(resident)
-        head, partition, tail = resident.partition("people/")
-        residente_id = tail[:-1]
-        residents.update({residente.json()['name']:residente_id})
+    for resident in true_planet['residentConnection']['residents']:
+        residents.update({resident['name']:resident['id']})
 
     return render(request, 'swinfo/planet_detail.html',{
-        'planet':planet,
+        'planet':true_planet,
         'films':films,
         'residents':residents,
     })
