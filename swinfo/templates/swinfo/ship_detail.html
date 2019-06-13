@@ -4,10 +4,10 @@
 <h1>{{ ship.name }}</h1>
 </head>
 
-<form action="/search/" method="get">
+<!-- <form action="/search/" method="get">
         <input type="text" name="q">
         <input type="submit" value="Buscar">
-</form>
+</form> -->
 
 <table style="width:100%">
  <tr>
@@ -30,27 +30,27 @@
   <tr>
     <td>{{ ship.name }}</td>
     <td>{{ ship.model }}</td>
-    <td>{{ ship.manufacturer }}</td>
-    <td>{{ ship.cost_in_credits }}</td>
+    <td>{{ ship.manufacturers }}</td>
+    <td>{{ ship.costInCredits }}</td>
     <td>{{ ship.length}}</td>
-    <td>{{ ship.max_atmosphering_speed }}</td>
+    <td>{{ ship.maxAtmospheringSpeed }}</td>
     <td>{{ ship.crew }}</td>
     <td>{{ ship.passengers }}</td>
-    <td>{{ ship.cargo_capacity }}</td>
+    <td>{{ ship.cargoCapacity }}</td>
     <td>{{ ship.consumables }}</td>
-    <td>{{ ship.hyperdrive_rating }}</td>
+    <td>{{ ship.hyperdriveRating }}</td>
     <td>{{ ship.MGLT }}</td>
-    <td>{{ ship.starship_class }}</td>
+    <td>{{ ship.starshipClass }}</td>
 
   </tr>
 </table>
 
 <h2>Películas en las que aparece:</h2>
 <table style="width:20%",>
-{% for film in films %}
+{% for key, value in films.items %}
 
  <tr>
-   <td class="click"><a href = "{% url 'detail' film.episode_id %}">{{ film.title }}</a></td>
+   <td class="click"><a href = "{% url 'detail' value %}">{{ key }}</a></td>
  </tr>
 {%endfor%}
 </table>

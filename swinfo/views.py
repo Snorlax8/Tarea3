@@ -169,24 +169,65 @@ def character_detail(request, character_id):
     })
 
 def ship_detail(request, starship_id):
-    response = requests.get('https://swapi.co/api/starships/'+str(starship_id))
-    ship = response.json()
-    films = []
+    query = {"query":
+    """
+    {
+  allStarships {
+
+    edges
+    {
+      node
+      {
+        name
+        id
+        model
+        manufacturers
+        costInCredits
+        length
+        maxAtmospheringSpeed
+        crew
+        passengers
+        cargoCapacity
+        consumables
+        hyperdriveRating
+        MGLT
+        starshipClass
+        filmConnection {
+            films {
+                title
+                id
+          }
+
+        }
+        pilotConnection {
+        	pilots {
+                name
+                id
+          }
+        }
+      }
+    }
+  }
+	}
+"""
+}
+    response = requests.post(url = url, json = query)
+    ships = response.json()["data"]["allStarships"]["edges"]
+    for ship in ships:
+        if ship["node"]["id"] == starship_id:
+            true_ship = ship["node"]
+    films = {}
     pilots = {}
 
-    for film in ship['films']:
-        movie = requests.get(film)
-        films.append(movie.json())
+    for film in true_ship['filmConnection']['films']:
+        films.update({film["title"]:film["id"]})
 
-    for pilot in ship['pilots']:
-        piloto = requests.get(pilot)
-        head, partition, tail = pilot.partition("people/")
-        piloto_id = tail[:-1]
-        pilots.update({piloto.json()['name']:piloto_id})
+    for pilot in true_ship['pilotConnection']['pilots']:
+        pilots.update({pilot['name']:pilot['id']})
 
 
     return render(request, 'swinfo/ship_detail.html',{
-        'ship':ship,
+        'ship':true_ship,
         'films':films,
         'pilots':pilots,
     })
