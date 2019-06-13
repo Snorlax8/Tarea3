@@ -1,0 +1,59 @@
+{% load static %}
+<head>
+  <link rel="stylesheet" href="{% static 'swinfo/css/swinfo.css' %}">
+<h1>{{ character.name }}</h1>
+</head>
+
+<!-- <form action="/search/" method="get">
+        <input type="text" name="q">
+        <input type="submit" value="Buscar">
+</form> -->
+
+<table style="width:100%">
+ <tr>
+   <th>Nombre</th>
+   <th>Altura</th>
+   <th>Masa</th>
+   <th>Color de pelo</th>
+   <th>Color de piel</th>
+   <th>Color de ojos</th>
+   <th>Año de nacimiento</th>
+   <th>Género</th>
+   <th>Planeta de origen</th>
+ </tr>
+
+
+  <tr>
+    <td>{{ character.name }}</td>
+    <td>{{ character.height}}</td>
+    <td>{{ character.mass }}</td>
+    <td>{{ character.hairColor }}</td>
+    <td>{{ character.skinColor }}</td>
+    <td>{{ character.eyeColor }}</td>
+    <td>{{ character.birthYear }}</td>
+    <td>{{ character.gender }}</td>
+    <td>{{ character.homeworld.name }}</td>
+  </tr>
+</table>
+
+<h2>Películas en las que aparece:</h2>
+<table style="width:20%",>
+{% for film in films %}
+
+ <tr>
+   <td class="click"><a href = "{% url 'detail' film.episode_id %}">{{ film.title }}</a></td>
+ </tr>
+{%endfor%}
+</table>
+
+{% if starships %}
+  <h2>Naves asociadas:</h2>
+  <table style="width:20%",>
+  {% for key, value in starships.items %}
+
+   <tr>
+     <td class="click"> <a href= "{% url 'ship_detail' value %}">{{key}}</a></td>
+   </tr>
+  {%endfor%}
+  </table>
+{% endif %}

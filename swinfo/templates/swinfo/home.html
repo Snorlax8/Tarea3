@@ -1,0 +1,63 @@
+{% load static %}
+<html>
+
+
+ <head>
+
+
+  <link rel="stylesheet" href="{% static 'swinfo/css/swinfo.css' %}">
+  <h1 style="font-family:Arial">Películas de Star Wars:</h1>
+</head>
+
+<table style="width:100%">
+ <tr>
+   <th>Nombre</th>
+   <th>Número de episodio</th>
+   <th>Fecha de lanzamiento</th>
+   <th>Director</th>
+   <th>Productor(es)</th>
+ </tr>
+
+{% for movie in movies %}
+  <tr>
+    <td class="click"><a href = "{% url 'detail' movie.node.episodeID %}">{{ movie.node.title }}</a></td>
+    <td>{{ movie.node.episodeID }}</td>
+    <td>{{ movie.node.releaseDate }}</td>
+    <td>{{ movie.node.director }}</td>
+    <td>{{ movie.node.producer }}</td>
+  </tr>
+{% endfor %}
+</table>
+
+<!-- <head>
+
+
+  <link rel="stylesheet" href="{% static 'swinfo/css/swinfo.css' %}">
+  <h1 style="font-family:Arial">Películas de Star Wars:</h1>
+</head>
+
+<form action="/search/" method="get">
+        <input type="text" name="q">
+        <input type="submit" value="Buscar">
+</form>
+
+<table style="width:100%">
+ <tr>
+   <th>Nombre</th>
+   <th>Número de episodio</th>
+   <th>Fecha de lanzamiento</th>
+   <th>Director</th>
+   <th>Productor(es)</th>
+ </tr>
+
+{% for movie in movies.results %}
+  <tr>
+    <td class="click"><a href = "{% url 'detail' movie.episode_id %}">{{ movie.title }}</a></td>
+    <td>{{ movie.episode_id }}</td>
+    <td>{{ movie.release_date }}</td>
+    <td>{{ movie.director }}</td>
+    <td>{{ movie.producer }}</td>
+  </tr>
+{% endfor %}
+</table> -->
+</html>

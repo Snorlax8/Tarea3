@@ -1,0 +1,60 @@
+{% load static %}
+<head>
+  <link rel="stylesheet" href="{% static 'swinfo/css/swinfo.css' %}">
+<h1>{{ ship.name }}</h1>
+</head>
+
+<form action="/search/" method="get">
+        <input type="text" name="q">
+        <input type="submit" value="Buscar">
+</form>
+
+<table style="width:100%">
+ <tr>
+   <th>Nombre</th>
+   <th>Periodo rotacional</th>
+   <th>Periodo orbital</th>
+   <th>Diámetro</th>
+   <th>Clima</th>
+   <th>Gravedad</th>
+   <th>Terreno</th>
+   <th>Superficie de agua</th>
+   <th>Población</th>
+ </tr>
+
+
+  <tr>
+    <td>{{ planet.name }}</td>
+    <td>{{ planet.rotation_period }}</td>
+    <td>{{ planet.orbital_period }}</td>
+    <td>{{ planet.diameter }}</td>
+    <td>{{ planet.climate }}</td>
+    <td>{{ planet.gravity }}</td>
+    <td>{{ planet.terrain }}</td>
+    <td>{{ planet.surface_water }}</td>
+    <td>{{ planet.population }}</td>
+
+  </tr>
+</table>
+
+<h2>Películas en las que aparece:</h2>
+<table style="width:20%",>
+{% for film in films %}
+
+ <tr>
+   <td class="click"><a href = "{% url 'detail' film.episode_id %}">{{ film.title }}</a></td>
+ </tr>
+{%endfor%}
+</table>
+
+{% if residents %}
+  <h2>Residentes:</h2>
+  <table style="width:20%",>
+  {% for key, value in residents.items %}
+
+   <tr>
+     <td class="click"><a href = "{% url 'character_detail' value %}">{{key}}</a></td>
+   </tr>
+  {%endfor%}
+  </table>
+{% endif %}

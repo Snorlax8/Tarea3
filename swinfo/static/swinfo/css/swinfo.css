@@ -1,0 +1,30 @@
+h2, h1 {
+    color: #B8860B;
+    font-family: "Comic Sans MS", cursive, "Verdana", "Arial";
+}
+
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse
+}
+
+th {
+  text-align: left;
+}
+
+table tr:nth-child(even) {
+  background-color: #eee;
+}
+table tr:nth-child(odd) {
+  background-color: #fff;
+}
+table th {
+  color: white;
+  background-color: black;
+}
+
+/* ul {
+  columns: 4;
+  -webkit-columns: 4;
+  -moz-columns: 4;
+} */

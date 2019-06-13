@@ -1,0 +1,68 @@
+{% load static %}
+<head>
+  <link rel="stylesheet" href="{% static 'swinfo/css/swinfo.css' %}">
+<h1>{{ ship.name }}</h1>
+</head>
+
+<form action="/search/" method="get">
+        <input type="text" name="q">
+        <input type="submit" value="Buscar">
+</form>
+
+<table style="width:100%">
+ <tr>
+   <th>Nombre</th>
+   <th>Modelo</th>
+   <th>Manufacturadores</th>
+   <th>Costo en créditos</th>
+   <th>Longitud</th>
+   <th>Máxima velocidad atmosférica</th>
+   <th>Tripulación</th>
+   <th>Pasajeros</th>
+   <th>Capacidad de carga</th>
+   <th>Consumibles</th>
+   <th>Rating de hyperdrive</th>
+   <th>MGLT</th>
+   <th>Clase</th>
+ </tr>
+
+
+  <tr>
+    <td>{{ ship.name }}</td>
+    <td>{{ ship.model }}</td>
+    <td>{{ ship.manufacturer }}</td>
+    <td>{{ ship.cost_in_credits }}</td>
+    <td>{{ ship.length}}</td>
+    <td>{{ ship.max_atmosphering_speed }}</td>
+    <td>{{ ship.crew }}</td>
+    <td>{{ ship.passengers }}</td>
+    <td>{{ ship.cargo_capacity }}</td>
+    <td>{{ ship.consumables }}</td>
+    <td>{{ ship.hyperdrive_rating }}</td>
+    <td>{{ ship.MGLT }}</td>
+    <td>{{ ship.starship_class }}</td>
+
+  </tr>
+</table>
+
+<h2>Películas en las que aparece:</h2>
+<table style="width:20%",>
+{% for film in films %}
+
+ <tr>
+   <td class="click"><a href = "{% url 'detail' film.episode_id %}">{{ film.title }}</a></td>
+ </tr>
+{%endfor%}
+</table>
+
+{% if pilots %}
+  <h2>Pilotos asociados:</h2>
+  <table style="width:20%",>
+  {% for key, value in pilots.items %}
+
+   <tr>
+     <td class="click"><a href = "{% url 'character_detail' value %}">{{key}}</a></td>
+   </tr>
+  {%endfor%}
+  </table>
+{% endif %}

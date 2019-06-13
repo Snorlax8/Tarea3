@@ -1,0 +1,60 @@
+
+{% load static %}
+
+<head>
+  <link rel="stylesheet" href="{% static 'swinfo/css/swinfo.css' %}">
+<h1>{{ movie.title }}</h1>
+</head>
+
+<!-- <form action="/search/" method="get">
+        <input type="text" name="q">
+        <input type="submit" value="Buscar">
+</form> -->
+
+<table style="width:100%">
+ <tr>
+   <th>Nombre</th>
+   <th>Número de episodio</th>
+   <th>Fecha de lanzamiento</th>
+   <th>Director</th>
+   <th>Productor(es)</th>
+ </tr>
+ <td>{{ movie.title }}</td>
+ <td>{{ movie.episodeID }}</td>
+ <td>{{ movie.releaseDate }}</td>
+ <td>{{ movie.director }}</td>
+ <td>{{ movie.producers }}</td>
+ </table>
+
+<h2>Personajes:</h2>
+<table style="width:20%",>
+{% for key, value in characters.items %}
+
+ <tr>
+   <td ><a href = "{% url 'character_detail' value %}">{{key}}</a></td>
+ </tr>
+{%endfor%}
+</table>
+
+<h2>Naves:</h2>
+<table style="width:20%",>
+{% for key, value in starships.items %}
+
+ <tr>
+   <td class="click"><a href = "{% url 'ship_detail' value %}">{{key}}</a></td>
+ </tr>
+{%endfor%}
+</table>
+
+<h2>Planetas:</h2>
+<table style="width:20%",>
+{% for key, value in planets.items %}
+
+ <tr>
+   <td class="click"><a href = "{% url 'planet_detail' value %}">{{key}}</a></td>
+ </tr>
+{%endfor%}
+</table>
+
+<h2>Introducción:</h2>
+<p>{{movie.openingCrawl}}</p> 

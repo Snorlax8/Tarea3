@@ -1,0 +1,63 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'swinfo/css/swinfo.css' %}">
+<h1 style="font-family:Arial">Resultados de la búsqueda:</h1>
+
+<form action="/search/" method="get">
+        <input type="text" name="q">
+        <input type="submit" value="Buscar">
+</form>
+
+{% if movies %}
+  <h2>Películas:</h2>
+  <table style="width:20%">
+  {% for movie in movies%}
+      <tr>
+        <td class="click"><a href = "{% url 'detail' movie.episode_id %}">{{ movie.title }}</a></td>
+      </tr>
+  {% endfor %}
+  </table>
+{% endif %}
+
+
+{% if characters%}
+<h2>Personajes:</h2>
+
+  <table style="width:20%">
+
+  {% for character in characters%}
+
+      <tr>
+        <td class="click"> <a href="{% url 'character_detail' character.id%}">{{ character.name }}</a></td>
+      </tr>
+
+  {% endfor %}
+  </table>
+{% endif %}
+
+{% if planets%}
+  <h2>Planetas:</h2>
+  <table style="width:20%">
+  {% for planet in planets%}
+
+      <tr>
+        <td class="click"> <a href="{% url 'planet_detail' planet.id%}">{{ planet.name }}</a></td>
+      </tr>
+
+  {% endfor %}
+  </table>
+{% endif %}
+
+{% if ships %}
+<h2>Naves:</h2>
+<table style="width:20%">
+
+{% for ship in ships%}
+
+    <tr>
+      <td class="click"> <a href="{% url 'ship_detail' ship.id%}">{{ ship.name }}</a></td>
+    </tr>
+
+{% endfor %}
+</table>
+{% endif %}
