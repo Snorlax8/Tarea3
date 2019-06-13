@@ -20,7 +20,7 @@
 
 {% for movie in movies %}
   <tr>
-    <td class="click"><a href = "{% url 'detail' movie.node.episodeID %}">{{ movie.node.title }}</a></td>
+    <td class="click"><a href = "{% url 'detail' movie.node.id %}">{{ movie.node.title }}</a></td>
     <td>{{ movie.node.episodeID }}</td>
     <td>{{ movie.node.releaseDate }}</td>
     <td>{{ movie.node.director }}</td>

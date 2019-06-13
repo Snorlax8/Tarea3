@@ -14,6 +14,7 @@ def index(request):
                     edges {
                       node {
                         episodeID
+                        id
                         title
                         director
                         producers
@@ -40,6 +41,7 @@ def detail(request, movie_id):
                   allFilms {
                     edges {
                       node {
+                        id
                         episodeID
                         openingCrawl
                         title
@@ -83,8 +85,9 @@ def detail(request, movie_id):
     characters = {}
     starships = {}
     planets = {}
+
     for movie in movies:
-        if movie["node"]['episodeID'] == movie_id:
+        if movie["node"]['id'] == movie_id:
             correct_movie = movie
     for character in correct_movie['node']['characterConnection']['characters']:
         characters.update({character["name"]: character["id"]})
@@ -105,58 +108,64 @@ def detail(request, movie_id):
 def character_detail(request, character_id):
 
     query = {"query":
-            """
-            {
-              allPeople {
-                edges
-                {
-                  node {
-                   name
-                    id
-                    height
-                    mass
-                    eyeColor
-                    hairColor
-                    skinColor
-                    birthYear
-                    gender
-                    homeworld {
-                        name
-                    }
-                  }
-
-                }
+    """
+    {
+      allPeople {
+        edges
+        {
+          node {
+           name
+            id
+            height
+            mass
+            hairColor
+            skinColor
+            birthYear
+            gender
+            filmConnection {
+              films {
+                title
+                id
               }
-             }
-             """
             }
+            starshipConnection{
+              starships
+              {
+                name
+                id
+              }
+            }
+            homeworld{
+              name
+              id
 
+            }
+          }
+
+        }
+      }
+    }
+    """
+ }
     response = requests.post(url = url, json = query)
     characters = response.json()["data"]["allPeople"]["edges"]
     for character in characters:
         if character["node"]["id"] == character_id:
             true_character = character["node"]
-    # character = response.json()
-    # planet = character['homeworld']
-    # homeworld = requests.get(planet).json()
-    # films = []
-    # starships = {}
-    #
-    # for film in character['films']:
-    #     movie = requests.get(film)
-    #     films.append(movie.json())
-    #
-    # for starship in character['starships']:
-    #     ships = requests.get(starship)
-    #     head, partition, tail = starship.partition("starships/")
-    #     starships_id = tail[:-1]
-    #     starships.update({ships.json()['name']:starships_id})
+
+    films = {}
+    starships = {}
+
+    for film in true_character['filmConnection']['films']:
+        films.update({film["title"]:film["id"]})
+
+    for starship in true_character['starshipConnection']['starships']:
+        starships.update({starship['name']:starship['id']})
 
     return render(request, 'swinfo/character_detail.html',{
         'character':true_character,
-        # 'homeworld':homeworld,
-        # 'films':films,
-        # 'starships':starships,
+        'films':films,
+        'starships':starships,
     })
 
 def ship_detail(request, starship_id):

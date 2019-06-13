@@ -38,10 +38,10 @@
 
 <h2>Películas en las que aparece:</h2>
 <table style="width:20%",>
-{% for film in films %}
+{% for key, value in films.items %}
 
  <tr>
-   <td class="click"><a href = "{% url 'detail' film.episode_id %}">{{ film.title }}</a></td>
+   <td class="click"><a href = "{% url 'detail' value %}">{{ key }}</a></td>
  </tr>
 {%endfor%}
 </table>
