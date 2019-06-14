@@ -25,7 +25,7 @@ SECRET_KEY = 'j78*=yl1!y6v#96k$aq_6rq2i5ybs3(n@6t)e=!k=1p44fuq57'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'infinite-refuge-26757.herokuapp.com']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'alongtimeago.herokuapp.com']
 
 
 # Application definition
