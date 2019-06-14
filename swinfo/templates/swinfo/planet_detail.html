@@ -29,9 +29,17 @@
     <td>{{ planet.rotationPeriod }}</td>
     <td>{{ planet.orbitalPeriod }}</td>
     <td>{{ planet.diameter }}</td>
-    <td>{{ planet.climates }}</td>
+    <td>{% for climate in planet.climates %}
+         {{climate}}
+         -
+    {%endfor%}
+    </td>
     <td>{{ planet.gravity }}</td>
-    <td>{{ planet.terrains }}</td>
+    <td>{% for terrain in planet.terrains %}
+         {{terrain}}
+         -
+    {%endfor%}
+    </td>
     <td>{{ planet.surfaceWater }}</td>
     <td>{{ planet.population }}</td>
 
