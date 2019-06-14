@@ -24,7 +24,11 @@
  <td>{{ movie.episodeID }}</td>
  <td>{{ movie.releaseDate }}</td>
  <td>{{ movie.director }}</td>
- <td>{{ movie.producers }}</td>
+ <td>{% for name in movie.producers %}
+      {{name}}
+      -
+ {%endfor%}
+ </td>
  </table>
 
 <h2>Personajes:</h2>
