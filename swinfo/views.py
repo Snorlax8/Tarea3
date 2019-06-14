@@ -98,6 +98,8 @@ def detail(request, movie_id):
     for planet in correct_movie['node']['planetConnection']['planets']:
         planets.update({planet['name']:planet['id']})
 
+
+
     return render(request, 'swinfo/detail.html', {
         'movie': correct_movie["node"],
         'characters':characters,
@@ -118,6 +120,7 @@ def character_detail(request, character_id):
             id
             height
             mass
+            eyeColor
             hairColor
             skinColor
             birthYear
