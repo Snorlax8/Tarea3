@@ -1,6 +1,6 @@
-h2, h1 {
+h2, h1, h3 {
     color: #B8860B;
-    font-family: "Comic Sans MS", cursive, "Verdana", "Arial";
+    font-family: "Verdana", "Arial";
 }
 
 table, th, td {
