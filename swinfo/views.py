@@ -6,7 +6,22 @@ import requests
 # def index(request):
 #     return HttpResponse("Hello World! Welcome to the poll index :D")
 url = 'https://swapi-graphql-integracion-t3.herokuapp.com/'
+def get_client_ip(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        print("returning FORWARDED_FOR")
+        ip = x_forwarded_for.split(',')[-1].strip()
+    elif request.META.get('HTTP_X_REAL_IP'):
+        print("returning REAL_IP")
+        ip = request.META.get('HTTP_X_REAL_IP')
+    else:
+        print("returning REMOTE_ADDR")
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
+
 def index(request):
+
+
     query = {"query":
                 """
                 {
@@ -32,6 +47,7 @@ def index(request):
 
     return render(request, 'swinfo/home.html', {
         'movies': movies["data"]["allFilms"]["edges"],
+        'ip'get_client_ip(request),
     })
 
 def detail(request, movie_id):
