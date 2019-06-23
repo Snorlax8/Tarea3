@@ -47,7 +47,7 @@ def index(request):
 
     return render(request, 'swinfo/home.html', {
         'movies': movies["data"]["allFilms"]["edges"],
-        'ip'get_client_ip(request),
+        'ip':get_client_ip(request),
     })
 
 def detail(request, movie_id):
